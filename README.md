@@ -1,28 +1,28 @@
-# QA
+# Multilingual Question Answering Project
 
-## Pha Reader 
-Chúng tôi sử dụng mô hình XLM-R base để fine-tune với dữ liệu trên 2 nguồn như sau:
+
+## Reader Phase
+We used XLM-R-base to fine-tuning on 2 source datasets:
 * UIT-vquad 
 * MLQA (https://github.com/facebookresearch/MLQA)
-	
-Chúng tôi tăng cường dữ liệu bằng cách paraphase các câu hỏi trong bộ UIT-vQUAD với cách làm như sau :
+
+We used  augmentation technique to enhancing model performance. Specifically, we papraphased the questions in the data by:
 ```
-    Câu hỏi tiếng Việt --(dịch)-> câu tiếng Trung --(dịch)-> câu tiếng Việt
-    Ví dụ: 
-      Câu gốc : Qua đầu thế kỷ 21, Jackson bắt đầu hợp tác cùng các nhà soạn nhạc nổi tiếng nào?
-      Câu paraphase: Jackson bắt đầu hợp tác với những nhà soạn nhạc nổi tiếng nào vào đầu những năm 2000?
+    Vietnamese question --(Translate)-> Chinese question --(Translate)-> Vietnamese question
+    For exmaple: 
+      Origin : Qua đầu thế kỷ 21, Jackson bắt đầu hợp tác cùng các nhà soạn nhạc nổi tiếng nào?
+      After paraphasing: Jackson bắt đầu hợp tác với những nhà soạn nhạc nổi tiếng nào vào đầu những năm 2000?
 ```
-Chúng tôi dùng tool Deep Translator [https://github.com/nidhaloff/deep-translator] của để gọi API dịch câu của Google.
 
-Dữ liệu gồm 44326 cặp context-question với context và question gồm cả tiếng Anh và tiếng Việt. 
+Deep Translator is used [https://github.com/nidhaloff/deep-translator] to call Google API.
 
-Mô hình có thể hoạt động tốt trên các câu hỏi dạng (What, when, where) khi context và question là 1 trong 2 ngôn ngữ Anh, Việt.
+Our model can work well in some questions type like What, When, Where in both English and Vietnamese.
 
-### Cách dùng: 
+### Usage: 
 ```
 from transformers import pipeline
 
-# Replace this with your own checkpoint
+# My check-point 've already push to huggingface. 
 model_checkpoint = "chieunq/XLM-R-base-finetuned-uit-vquad-1"
 question_answerer = pipeline("question-answering", model=model_checkpoint)
 
