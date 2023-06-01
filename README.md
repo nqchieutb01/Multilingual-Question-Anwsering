@@ -3,7 +3,7 @@
 
 ## Reader Phase
 We used XLM-R-base to fine-tuning on 2 source datasets:
-* UIT-vquad 
+* UIT-ViQuAD 
 * MLQA (https://github.com/facebookresearch/MLQA)
 
 We used  augmentation technique to enhancing model performance. Specifically, we papraphased the questions in the data by:
